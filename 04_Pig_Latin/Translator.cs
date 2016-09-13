@@ -56,6 +56,7 @@ namespace _04_Pig_Latin {
 			return WordCut + FirstLetter;	// Add the first letter to the back of the word.
 		}
 
+		// Split a string into array of words
 		private string[] SplitString(string Input) {
 			char[] SplitChars = { ' ' };
 			return Input.Split(SplitChars);
