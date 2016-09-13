@@ -27,7 +27,7 @@ namespace _04_Pig_Latin {
 				Return.Add(WordNew);					// Add it to our return list.
 			}
 
-			return String.Join(" ", Return.ToArray());	// Converts return LIST to ARRAY, and joins elements with space
+			return String.Join(" ", Return.ToArray());	// Converts return list to array, and joins elements with space
 		}
 
 		// This methods deals with checking wether a letter needs to be moved to the back.
@@ -35,9 +35,10 @@ namespace _04_Pig_Latin {
 			char[] Vowels = { 'a', 'e', 'i', 'o', 'u'};	// Define an array of vowls
 			char PrevLetter = Word[0];					// Init. the previous letter, and populate with first letter to avoid NPE
 			char[] Letters = Word.ToCharArray();		// Convert our Word into a Char array, for easy looping
-			string WordNew = Word;						// Our final word
+			string WordNew = Word;                      // Our final word
+
 			foreach (char Letter in Letters) {
-				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl && !(special qu case)
+				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl AND NOT (special qu case)
 					!(Letter == 'u' && PrevLetter == 'q')) break;	// Break; Because we're done with this word.
 				WordNew = MoveFirstLetterToEnd(WordNew);	// Call the move letter function.
 				PrevLetter = Letter;					// Update PrevLetter used in special qu case checker.
