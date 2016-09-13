@@ -23,7 +23,7 @@ namespace _04_Pig_Latin {
 			string WordNew = Word;
 			foreach (char Letter in Letters) {
 				if (Vowels.Contains(Letter) && 
-					!(Letter == 'u' && PrevLetter == 'q')) break;
+					!(Letter == 'u' && PrevLetter = 'q')) break;
 				WordNew = MoveFirstLetterToEnd(WordNew);
 				PrevLetter = Letter;
 			}
