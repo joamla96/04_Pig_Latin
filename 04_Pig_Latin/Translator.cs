@@ -27,7 +27,8 @@ namespace _04_Pig_Latin {
 				string WordNew = CheckForVowels(Word.ToLower());  // Push word to CheckForVowls function, and make everything lowercase
 
 				if (isCapital)
-					WordNew = FirstCharToUpper(WordNew);// If the initial word was capital, we capitalise this one
+					WordNew = FirstCharToUpper(WordNew);	// If the initial word was capital, we capitalise this one
+				WordNew = FixPunctuation(WordNew);          // Method that fixes any punctuation in the word.
 
 				Return.Add(WordNew);                    // Add it to our return list.
 			}
@@ -49,8 +50,6 @@ namespace _04_Pig_Latin {
 				PrevLetter = Letter;                                // Update PrevLetter used in special qu case checker.
 			}
 
-			WordNew = FixPunctuation(WordNew);          // Method that fixes any punctuation in the word.
-
 			return WordNew + "ay";
 		}
 
@@ -70,14 +69,13 @@ namespace _04_Pig_Latin {
 		}
 
 		// Custom Contains Array because no linq eh.
-		private bool CharArrayContains(char Needle, char[] Haystack) {
-			bool Contains = false;
+		private static bool CharArrayContains(char Needle, char[] Haystack) {
 			foreach (char Hay in Haystack) {
 				if (Hay == Needle) {
-					Contains = true;
+					return true;
 				}
 			}
-			return Contains;
+			return false;
 		}
 
 		private static string FirstCharToUpper(string Input) {
@@ -92,16 +90,26 @@ namespace _04_Pig_Latin {
 		}
 
 		private static string FixPunctuation(string Input) {
-			string[] Punctuation = { ".", ",", "!", "?" };
+			char[] Punctuation = { '.',',','!','?'};
 
-			foreach (string Punc in Punctuation) {
-				if (Input.Contains(Punc)) {
-					throw new NotImplementedException();
+			string Return = Input;
+
+			string WordStart;
+			string WordEnd;
+			string PuncRemoved;
+
+			for(int i = 0; i < Input.Length; i++) {
+				if(CharArrayContains(Input[i], Punctuation)) {
+					WordStart = Input.Substring(0, i);
+					WordEnd = Input.Substring(i + 1);
+					PuncRemoved = Input.Substring(i, 1);
+
+					Return = WordStart + WordEnd + PuncRemoved;
 				}
-
 			}
 
-			return Input;
+			return Return;
 		}
+
 	}
 }
