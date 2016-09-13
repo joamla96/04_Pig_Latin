@@ -18,6 +18,7 @@ namespace _04_Pig_Latin {
 	 */
 
 	public class Translator {                           // Main Method called
+
 		public string Translate(string v) {
 			string[] Words = SplitString(v);            // Split string, to deal with multiple words
 			List<string> Return = new List<string>();   // Init. list that we're gonna stich together
