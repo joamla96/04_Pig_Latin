@@ -17,43 +17,50 @@ namespace _04_Pig_Latin {
 	 *							Stich first letter back on end and return;
 	 */
 
-	public class Translator {							// Main Method called
+	public class Translator {                           // Main Method called
 		public string Translate(string v) {
-			string[] Words = SplitString(v);			// Split string, to deal with multiple words
-			List<string> Return = new List<string>();	// Init. list that we're gonna stich together
+			string[] Words = SplitString(v);            // Split string, to deal with multiple words
+			List<string> Return = new List<string>();   // Init. list that we're gonna stich together
 
-			foreach (string Word in Words) {			// Foreach word, 
-				string WordNew = CheckForVowels(Word);	// Push word to CheckForVowls function
-				Return.Add(WordNew);					// Add it to our return list.
+			foreach (string Word in Words) {           // Foreach word, 
+				bool isCapital = WordIsTitle(Word);         // Check and save for later, if the word is capital
+				string WordNew = CheckForVowels(Word.ToLower());  // Push word to CheckForVowls function, and make everything lowercase
+
+				if (isCapital)
+					WordNew = FirstCharToUpper(WordNew);// If the initial word was capital, we capitalise this one
+
+				Return.Add(WordNew);                    // Add it to our return list.
 			}
 
-			return String.Join(" ", Return.ToArray());	// Converts return LIST to ARRAY, and joins elements with space
+			return String.Join(" ", Return.ToArray());  // Converts return LIST to ARRAY, and joins elements with space
 		}
 
 		// This methods deals with checking wether a letter needs to be moved to the back.
 		private string CheckForVowels(string Word) {
-			char[] Vowels = { 'a', 'e', 'i', 'o', 'u'};	// Define an array of vowls
-			char PrevLetter = Word[0];					// Init. the previous letter, and populate with first letter to avoid NPE
-			char[] Letters = Word.ToCharArray();		// Convert our Word into a Char array, for easy looping
-			string WordNew = Word;                      // Our final word
+			char[] Vowels = { 'a', 'e', 'i', 'o', 'u' };    // Define an array of vowls
+			char PrevLetter = Word[0];                      // Init. the previous letter, and populate with first letter to avoid NPE
+			char[] Letters = Word.ToCharArray();            // Convert our Word into a Char array, for easy looping
+			string WordNew = Word;                          // Our final word
 
 			foreach (char Letter in Letters) {
-				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl && !(special qu case)
-					!(Letter == 'u' && PrevLetter == 'q')) break;	// Break; Because we're done with this word.
-				WordNew = MoveFirstLetterToEnd(WordNew);	// Call the move letter function.
-				PrevLetter = Letter;					// Update PrevLetter used in special qu case checker.
+				if (CharArrayContains(Letter, Vowels) &&            // If Letter is a vovwl && !(special qu case)
+					!(Letter == 'u' && PrevLetter == 'q')) break;   // Break; Because we're done with this word.
+				WordNew = MoveFirstLetterToEnd(WordNew);            // Call the move letter function.
+				PrevLetter = Letter;                                // Update PrevLetter used in special qu case checker.
 			}
+
+			WordNew = FixPunctuation(WordNew);          // Method that fixes any punctuation in the word.
 
 			return WordNew + "ay";
 		}
 
 		// This method moves the first letter to the back
 		private string MoveFirstLetterToEnd(string Input) {
-			char FirstLetter = Input[0];	// Take and save the first letter
-			string WordCut;					// Init. string for cut word.
+			char FirstLetter = Input[0];    // Take and save the first letter
+			string WordCut;                 // Init. string for cut word.
 
-			WordCut = Input.Substring(1);	// Cut word, removing the first letter
-			return WordCut + FirstLetter;	// Add the first letter to the back of the word.
+			WordCut = Input.Substring(1);   // Cut word, removing the first letter
+			return WordCut + FirstLetter;   // Add the first letter to the back of the word.
 		}
 
 		// Split a string into array of words
@@ -65,12 +72,36 @@ namespace _04_Pig_Latin {
 		// Custom Contains Array because no linq eh.
 		private bool CharArrayContains(char Needle, char[] Haystack) {
 			bool Contains = false;
-			foreach(char Hay in Haystack) {
-				if(Hay == Needle) {
+			foreach (char Hay in Haystack) {
+				if (Hay == Needle) {
 					Contains = true;
 				}
 			}
 			return Contains;
+		}
+
+		private static string FirstCharToUpper(string Input) {
+			string firstLetter = Input.Substring(0, 1);
+			return firstLetter.ToUpper() + Input.Substring(1);
+		}
+
+		private static bool WordIsTitle(string Input) {
+			string firstLetter = Input.Substring(0, 1);
+			if (firstLetter.ToUpper() == firstLetter) return true;
+			else return false;
+		}
+
+		private static string FixPunctuation(string Input) {
+			string[] Punctuation = { ".", ",", "!", "?" };
+
+			foreach (string Punc in Punctuation) {
+				if (Input.Contains(Punc)) {
+					throw new NotImplementedException();
+				}
+
+			}
+
+			return Input;
 		}
 	}
 }
