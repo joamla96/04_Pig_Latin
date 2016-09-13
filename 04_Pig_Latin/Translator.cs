@@ -35,16 +35,17 @@ namespace _04_Pig_Latin {
 			char[] Vowels = { 'a', 'e', 'i', 'o', 'u'};	// Define an array of vowls
 			char PrevLetter = Word[0];					// Init. the previous letter, and populate with first letter to avoid NPE
 			char[] Letters = Word.ToCharArray();		// Convert our Word into a Char array, for easy looping
-			string WordNew = Word;						// Our final word
+			string WordNew = Word;                      // Our final word
+
 			foreach (char Letter in Letters) {
-				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl && !(special qu case)
+				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl AND NOT (special qu case)
 					!(Letter == 'u' && PrevLetter == 'q')) break;	// Break; Because we're done with this word.
 				WordNew = MoveFirstLetterToEnd(WordNew);	// Call the move letter function.
 				PrevLetter = Letter;					// Update PrevLetter used in special qu case checker.
 			}
 
-				return WordNew + "ay";
-			}
+			return WordNew + "ay";
+		}
 
 		// This method moves the first letter to the back
 		private string MoveFirstLetterToEnd(string Input) {
@@ -67,10 +68,8 @@ namespace _04_Pig_Latin {
 			foreach(char Hay in Haystack) {
 				if(Hay == Needle) {
 					Contains = true;
-					break;
 				}
 			}
-
 			return Contains;
 		}
 	}
