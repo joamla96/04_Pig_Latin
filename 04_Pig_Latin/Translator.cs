@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace _04_Pig_Latin {
 
@@ -38,7 +37,7 @@ namespace _04_Pig_Latin {
 			char[] Letters = Word.ToCharArray();		// Convert our Word into a Char array, for easy looping
 			string WordNew = Word;						// Our final word
 			foreach (char Letter in Letters) {
-				if (Vowels.Contains(Letter) &&			// If Letter is a vovwl && !(special qu case)
+				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl && !(special qu case)
 					!(Letter == 'u' && PrevLetter == 'q')) break;	// Break; Because we're done with this word.
 				WordNew = MoveFirstLetterToEnd(WordNew);	// Call the move letter function.
 				PrevLetter = Letter;					// Update PrevLetter used in special qu case checker.
@@ -60,6 +59,19 @@ namespace _04_Pig_Latin {
 		private string[] SplitString(string Input) {
 			char[] SplitChars = { ' ' };
 			return Input.Split(SplitChars);
+		}
+
+		// Custom Contains Array because no linq eh.
+		private bool CharArrayContains(char Needle, char[] Haystack) {
+			bool Contains = false;
+			foreach(char Hay in Haystack) {
+				if(Hay == Needle) {
+					Contains = true;
+					break;
+				}
+			}
+
+			return Contains;
 		}
 	}
 }
