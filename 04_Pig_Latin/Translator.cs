@@ -35,7 +35,8 @@ namespace _04_Pig_Latin {
 			char[] Vowels = { 'a', 'e', 'i', 'o', 'u'};	// Define an array of vowls
 			char PrevLetter = Word[0];					// Init. the previous letter, and populate with first letter to avoid NPE
 			char[] Letters = Word.ToCharArray();		// Convert our Word into a Char array, for easy looping
-			string WordNew = Word;						// Our final word
+			string WordNew = Word;                      // Our final word
+
 			foreach (char Letter in Letters) {
 				if (CharArrayContains(Letter, Vowels) &&			// If Letter is a vovwl && !(special qu case)
 					!(Letter == 'u' && PrevLetter == 'q')) break;	// Break; Because we're done with this word.
