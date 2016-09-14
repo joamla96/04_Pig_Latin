@@ -85,8 +85,8 @@ namespace _04_Pig_Latin {
 		}
 
 		private static bool WordIsTitle(string Input) {
-			string firstLetter = Input.Substring(0, 1);
-			if (firstLetter.ToUpper() == firstLetter) return true;
+			char firstLetter = Input[0];
+			if (char.ToUpper(firstLetter) == firstLetter) return true;
 			else return false;
 		}
 

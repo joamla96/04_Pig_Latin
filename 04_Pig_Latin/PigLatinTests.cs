@@ -77,7 +77,7 @@ namespace _04_Pig_Latin
         public void TranslateProperSentence()
         {
             Translator translator = new Translator();
-            Assert.AreEqual("Ethay Ickquay, ownbray Oxfay.", translator.Translate("The Quick, brown Fox."));
-        }
+            Assert.AreEqual("Ethay Ickquay, ownbray Oxfay!", translator.Translate("The Quick, brown Fox!"));
+		}
     }
 }
